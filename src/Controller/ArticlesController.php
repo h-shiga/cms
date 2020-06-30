@@ -8,27 +8,6 @@ use App\Controller\AppController;
 class ArticlesController extends AppController
 {
 
-    public function initialize(): void
-    {
-        parent::initialize();
-
-        $this->loadComponent('Paginator');
-        $this->loadComponent('Flash'); // FlashComponent をインクルード
-    }
-
-    public function index()
-    {
-        $this->loadComponent('Paginator');
-        $articles = $this->Paginator->paginate($this->Articles->find());
-        $this->set(compact('articles'));
-    }
-
-    public function view($slug = null)
-    {
-        $article = $this->Articles->findBySlug($slug)->firstOrFail();
-        $this->set(compact('article'));
-    }
-
     public function add()
     {
         $article = $this->Articles->newEmptyEntity();
@@ -51,6 +30,27 @@ class ArticlesController extends AppController
         $this->set('tags', $tags);
 
         $this->set('article', $article);
+    }
+
+    public function initialize(): void
+    {
+        parent::initialize();
+
+        $this->loadComponent('Paginator');
+        $this->loadComponent('Flash'); // FlashComponent をインクルード
+    }
+
+    public function index()
+    {
+        $this->loadComponent('Paginator');
+        $articles = $this->Paginator->paginate($this->Articles->find());
+        $this->set(compact('articles'));
+    }
+
+    public function view($slug = null)
+    {
+        $article = $this->Articles->findBySlug($slug)->firstOrFail();
+        $this->set(compact('article'));
     }
 
     public function edit($slug)
@@ -85,12 +85,8 @@ class ArticlesController extends AppController
         }
     }
 
-    public function tags()
+    public function tags(...$tags)
     {
-        // 'pass' キーは CakePHP によって提供され、リクエストに渡された
-        // 全ての URL パスセグメントを含みます。
-        $tags = $this->request->getParam('pass');
-
         // ArticlesTable を使用してタグ付きの記事を検索します。
         $articles = $this->Articles->find('tagged', [
             'tags' => $tags
