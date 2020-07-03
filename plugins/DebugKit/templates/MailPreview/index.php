@@ -33,7 +33,7 @@
     <p><?= __d('debug_kit', 'Just the way you work on the web interface!') ?> &#127939;</p>
 
     <h4><?= __d('debug_kit', 'Example') ?></h4>
-    <p><?= __d('debug_kit', "{0} integrates with CakePHP’s {1} class. Here's an example of such a mailer:", 'MailPreview', 'Mailer') ?></p>
+    <p><?= __d('debug_kit', "{0} integrates with CakePHP's {1} class. Here's an example of such a mailer:", 'MailPreview', 'Mailer') ?></p>
 
     <pre style="background-color:#f8f8f8;font-familiy:Monaco,sans-serif;overflow:scroll;margin:10px 0;line-height:25px;">
     <?php
