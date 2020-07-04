@@ -7,6 +7,20 @@ use App\Controller\AppController;
 
 class ArticlesController extends AppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+
+        $this->loadComponent('Paginator');
+        $this->loadComponent('Flash'); // FlashComponent をインクルード
+    }
+
+    public function index()
+    {
+        $this->loadComponent('Paginator');
+        $articles = $this->Paginator->paginate($this->Articles->find());
+        $this->set(compact('articles'));
+    }
 
     public function add()
     {
@@ -30,21 +44,6 @@ class ArticlesController extends AppController
         $this->set('tags', $tags);
 
         $this->set('article', $article);
-    }
-
-    public function initialize(): void
-    {
-        parent::initialize();
-
-        $this->loadComponent('Paginator');
-        $this->loadComponent('Flash'); // FlashComponent をインクルード
-    }
-
-    public function index()
-    {
-        $this->loadComponent('Paginator');
-        $articles = $this->Paginator->paginate($this->Articles->find());
-        $this->set(compact('articles'));
     }
 
     public function view($slug = null)
